@@ -4,12 +4,7 @@
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Sparkles, MessageSquare, Zap } from 'lucide-react';
-
-// Note: In a real implementation, you would import from 'prompt-kit'
-// For this demo, we'll create a simple simulation of prompt-kit functionality
-// import { usePrompt } from 'prompt-kit';
-
+import { Sparkles, MessageSquare, Zap, Activity } from 'lucide-react';
 
 interface PromptKitDemoProps {
   onInteraction: (type: string, data: unknown) => void;
@@ -25,7 +20,7 @@ export const PromptKitDemo: React.FC<PromptKitDemoProps> = ({ onInteraction }) =
     setLastAction(action);
     
     // Simulate API call delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    await new Promise(resolve => setTimeout(resolve, 1500));
     
     const result = {
       action,
@@ -45,82 +40,116 @@ export const PromptKitDemo: React.FC<PromptKitDemoProps> = ({ onInteraction }) =
   };
 
   const handleQuickPrompt = () => {
-    simulatePromptKit('Quick Emotion Analysis');
+    simulatePromptKit('Emotion Analysis');
   };
 
   const handleInteractivePrompt = () => {
-    simulatePromptKit('Interactive Chat Enhancement');
+    simulatePromptKit('Interactive Enhancement');
   };
 
   const handleAdvancedPrompt = () => {
-    simulatePromptKit('Advanced Emotion Prediction');
+    simulatePromptKit('Advanced Prediction');
   };
 
   return (
-    <Card className="w-full bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 border-purple-200 dark:border-purple-800">
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-purple-800 dark:text-purple-200">
-          <Sparkles className="w-5 h-5" />
-          Prompt-Kit Integration Demo
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <p className="text-sm text-gray-600 dark:text-gray-400">
-          Demonstration of prompt-kit library integration for enhanced user interactions.
-        </p>
-        
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-          <Button
-            onClick={handleQuickPrompt}
-            disabled={isLoading}
-            variant="outline"
-            className="flex items-center gap-2 h-auto p-3 flex-col text-center hover:bg-purple-50 dark:hover:bg-purple-900/20"
-          >
-            <MessageSquare className="w-4 h-4" />
-            <span className="text-xs">Quick Analysis</span>
-          </Button>
+    <div className="space-y-4">
+      <Card className="bg-gray-800 border-gray-700">
+        <CardHeader className="pb-3">
+          <CardTitle className="flex items-center gap-2 text-gray-100 text-sm">
+            <Sparkles className="w-4 h-4 text-purple-400" />
+            Prompt-Kit Integration
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          <p className="text-xs text-gray-400">
+            Interactive UI library demonstration with real-time emotion processing.
+          </p>
           
-          <Button
-            onClick={handleInteractivePrompt}
-            disabled={isLoading}
-            variant="outline"
-            className="flex items-center gap-2 h-auto p-3 flex-col text-center hover:bg-purple-50 dark:hover:bg-purple-900/20"
-          >
-            <Zap className="w-4 h-4" />
-            <span className="text-xs">Interactive Mode</span>
-          </Button>
-          
-          <Button
-            onClick={handleAdvancedPrompt}
-            disabled={isLoading}
-            variant="outline"
-            className="flex items-center gap-2 h-auto p-3 flex-col text-center hover:bg-purple-50 dark:hover:bg-purple-900/20"
-          >
-            <Sparkles className="w-4 h-4" />
-            <span className="text-xs">Advanced Features</span>
-          </Button>
-        </div>
-
-        {isLoading && (
-          <div className="flex items-center justify-center gap-2 p-3 bg-purple-100 dark:bg-purple-900/30 rounded-lg">
-            <div className="animate-spin rounded-full h-4 w-4 border-2 border-purple-600 border-t-transparent"></div>
-            <span className="text-sm text-purple-700 dark:text-purple-300">
-              Processing {lastAction}...
-            </span>
+          <div className="space-y-2">
+            <Button
+              onClick={handleQuickPrompt}
+              disabled={isLoading}
+              variant="outline"
+              size="sm"
+              className="w-full justify-start bg-gray-700 border-gray-600 text-gray-100 hover:bg-gray-600 hover:border-gray-500 text-xs h-8"
+            >
+              <MessageSquare className="w-3 h-3 mr-2" />
+              Quick Analysis
+            </Button>
+            
+            <Button
+              onClick={handleInteractivePrompt}
+              disabled={isLoading}
+              variant="outline"
+              size="sm"
+              className="w-full justify-start bg-gray-700 border-gray-600 text-gray-100 hover:bg-gray-600 hover:border-gray-500 text-xs h-8"
+            >
+              <Zap className="w-3 h-3 mr-2" />
+              Interactive Mode
+            </Button>
+            
+            <Button
+              onClick={handleAdvancedPrompt}
+              disabled={isLoading}
+              variant="outline"
+              size="sm"
+              className="w-full justify-start bg-gray-700 border-gray-600 text-gray-100 hover:bg-gray-600 hover:border-gray-500 text-xs h-8"
+            >
+              <Activity className="w-3 h-3 mr-2" />
+              Advanced Features
+            </Button>
           </div>
-        )}
 
-        {lastAction && !isLoading && (
-          <div className="p-3 bg-green-100 dark:bg-green-900/30 rounded-lg border border-green-200 dark:border-green-800">
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-              <span className="text-sm text-green-700 dark:text-green-300 font-medium">
-                {lastAction} completed successfully!
+          {isLoading && (
+            <div className="flex items-center gap-2 p-2 bg-gray-700 rounded border border-gray-600">
+              <div className="animate-spin rounded-full h-3 w-3 border-2 border-purple-400 border-t-transparent"></div>
+              <span className="text-xs text-gray-300">
+                Processing...
               </span>
             </div>
+          )}
+
+          {lastAction && !isLoading && (
+            <div className="p-2 bg-gray-700 rounded border border-gray-600">
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                <span className="text-xs text-gray-300 font-medium">
+                  {lastAction} completed!
+                </span>
+              </div>
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
+      {/* Technology Stack Card */}
+      <Card className="bg-gray-800 border-gray-700">
+        <CardHeader className="pb-3">
+          <CardTitle className="text-gray-100 text-sm">Tech Stack</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-2">
+          <div className="flex items-center justify-between text-xs">
+            <span className="text-gray-400">Framework</span>
+            <span className="text-gray-200 font-medium">Next.js 14+</span>
           </div>
-        )}
-      </CardContent>
-    </Card>
+          <div className="flex items-center justify-between text-xs">
+            <span className="text-gray-400">Language</span>
+            <span className="text-gray-200 font-medium">TypeScript</span>
+          </div>
+          <div className="flex items-center justify-between text-xs">
+            <span className="text-gray-400">UI Library</span>
+            <span className="text-gray-200 font-medium">Shadcn/ui</span>
+          </div>
+          <div className="flex items-center justify-between text-xs">
+            <span className="text-gray-400">Styling</span>
+            <span className="text-gray-200 font-medium">Tailwind v4</span>
+          </div>
+          <div className="flex items-center justify-between text-xs">
+            <span className="text-gray-400">Special</span>
+            <span className="text-gray-200 font-medium">Prompt-kit</span>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
   );
 };
