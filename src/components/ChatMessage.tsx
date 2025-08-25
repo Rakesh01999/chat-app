@@ -1,7 +1,6 @@
-
+// components/ChatMessage.tsx
 import React from 'react';
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Card, CardContent } from "@/components/ui/card";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { EmotionBadge } from './EmotionBadge';
 import { ChatMessage as ChatMessageType } from '@/lib/types';
 import { User, Bot } from 'lucide-react';
@@ -23,16 +22,18 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
         const language = lines[0];
         const code = lines.slice(1).join('\n');
         return (
-          <pre key={index} className="bg-gray-100 dark:bg-gray-800 rounded-lg p-3 my-2 overflow-x-auto">
-            <code className="text-sm font-mono text-gray-800 dark:text-gray-200">
-              {code}
-            </code>
-          </pre>
+          <div key={index} className="bg-gray-800 rounded-lg p-4 my-3 border border-gray-700">
+            <pre className="overflow-x-auto">
+              <code className="text-sm font-mono text-gray-100 leading-relaxed">
+                {code}
+              </code>
+            </pre>
+          </div>
         );
       }
       // Regular text
       return (
-        <span key={index} className="whitespace-pre-wrap">
+        <span key={index} className="whitespace-pre-wrap leading-relaxed">
           {part}
         </span>
       );
@@ -40,33 +41,48 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
   };
 
   return (
-    <div className={`flex gap-3 p-4 ${isUser ? 'flex-row-reverse' : ''}`}>
+    <div className={`flex gap-4 ${isUser ? 'flex-row-reverse' : ''}`}>
       {/* Avatar */}
-      <Avatar className="w-8 h-8 mt-1">
-        <AvatarFallback className={`${isUser ? 'bg-blue-100 text-blue-700' : 'bg-green-100 text-green-700'}`}>
-          {isUser ? <User size={16} /> : <Bot size={16} />}
+      <Avatar className="w-8 h-8 mt-1 flex-shrink-0">
+        <AvatarFallback className={`${
+          isUser 
+            ? 'bg-gradient-to-br from-purple-500 to-pink-500 text-white' 
+            : 'bg-blue-500 text-white'
+        } text-xs`}>
+          {isUser ? <User size={14} /> : <Bot size={14} />}
         </AvatarFallback>
       </Avatar>
 
       {/* Message Content */}
-      <div className={`flex-1 max-w-[80%] ${isUser ? 'text-right' : ''}`}>
+      <div className={`flex-1 max-w-[70%] ${isUser ? 'text-right' : ''}`}>
         {/* Message Bubble */}
-        <Card className={`${
+        <div className={`${
           isUser 
-            ? 'bg-blue-500 text-white border-blue-500' 
-            : 'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700'
-        } shadow-sm`}>
-          <CardContent className="p-3">
-            <div className={`text-sm leading-relaxed ${isUser ? 'text-white' : 'text-gray-800 dark:text-gray-200'}`}>
-              {formatContent(message.content)}
-            </div>
-          </CardContent>
-        </Card>
+            ? 'bg-gray-600 text-gray-100 ml-auto' 
+            : 'bg-gray-750 text-gray-100'
+        } rounded-2xl p-4 shadow-sm border border-gray-600`}>
+          <div className="text-sm">
+            {formatContent(message.content)}
+          </div>
+        </div>
 
         {/* Emotions */}
-        <div className={`flex flex-wrap gap-1 mt-2 ${isUser ? 'justify-end' : ''}`}>
+        <div className={`flex flex-wrap gap-2 mt-3 ${isUser ? 'justify-end' : ''}`}>
           {message.emotions.map((emotion, index) => (
-            <EmotionBadge key={index} emotion={emotion} />
+            <div key={index} className="flex items-center text-xs text-gray-400">
+              <span className="mr-2">{emotion.label}</span>
+              <div className="flex-1 h-1 bg-gray-700 rounded-full overflow-hidden min-w-16">
+                <div 
+                  className={`h-full transition-all duration-300 ${
+                    emotion.confidence > 80 ? 'bg-blue-400' :
+                    emotion.confidence > 60 ? 'bg-green-400' : 
+                    'bg-purple-400'
+                  }`}
+                  style={{ width: `${emotion.confidence}%` }}
+                />
+              </div>
+              <span className="ml-2 font-mono">{emotion.confidence.toFixed(2)}</span>
+            </div>
           ))}
         </div>
       </div>

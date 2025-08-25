@@ -109,41 +109,135 @@
   }
 }
 
-/* Custom animations */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+    --radius: 0.5rem;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
   }
 }
 
-.animate-fadeIn {
-  animation: fadeIn 0.3s ease-in-out;
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  html {
+    @apply h-full;
+  }
+
+  body {
+    @apply h-full;
+  }
+
+  #__next {
+    @apply h-full;
+  }
 }
 
-/* Smooth scrolling */
-.smooth-scroll {
-  scroll-behavior: smooth;
+@layer utilities {
+  .bg-gray-750 {
+    background-color: rgb(55 65 81);
+  }
+
+  .bg-gray-850 {
+    background-color: rgb(31 41 55);
+  }
+
+  .text-shadow-sm {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
 }
 
-/* Custom scrollbar */
-.custom-scrollbar::-webkit-scrollbar {
+/* Custom scrollbar for dark theme */
+.dark ::-webkit-scrollbar {
   width: 6px;
+  height: 6px;
 }
 
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: transparent;
+.dark ::-webkit-scrollbar-track {
+  background: rgb(31 41 55);
 }
 
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(156, 163, 175, 0.5);
+.dark ::-webkit-scrollbar-thumb {
+  background: rgb(75 85 99);
   border-radius: 3px;
 }
 
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(156, 163, 175, 0.7);
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgb(107 114 128);
+}
+
+/* Smooth transitions */
+* {
+  transition-property: color, background-color, border-color,
+    text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter,
+    backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+/* Code syntax highlighting in dark mode */
+.dark code {
+  color: rgb(226 232 240);
+}
+
+.dark pre {
+  background-color: rgb(30 41 59);
+  border: 1px solid rgb(51 65 85);
+}
+
+/* Emotion progress bars */
+.emotion-bar {
+  background: linear-gradient(
+    90deg,
+    rgb(59 130 246) 0%,
+    rgb(34 197 94) 50%,
+    rgb(168 85 247) 100%
+  );
 }

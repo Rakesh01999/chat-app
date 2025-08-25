@@ -1,19 +1,29 @@
-"use client";
+// components/ChatInterface.tsx
+'use client';
 
-import React, { useState, useRef, useEffect } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import React, { useState, useRef, useEffect } from 'react';
+import { Card, CardContent } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Separator } from "@/components/ui/separator";
-import { ChatMessage } from "./ChatMessage";
-import { PromptKitDemo } from "./PromptKitDemo";
-import { messages } from "@/data/messages";
-import { MessageSquare, Brain, Activity } from "lucide-react";
+import { ChatMessage } from './ChatMessage';
+import { PromptKitDemo } from './PromptKitDemo';
+import { messages } from '@/data/messages';
+import { Moon, Sun, Copy, Menu } from 'lucide-react';
+import { Button } from "@/components/ui/button";
 
 export const ChatInterface: React.FC = () => {
-  const [interactions, setInteractions] = useState<
-    Array<{ type: string; data: unknown }>
-  >([]);
+  const [interactions, setInteractions] = useState<Array<{type: string, data: unknown}>>([]);
+  const [isDarkMode, setIsDarkMode] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Set dark mode on document
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [isDarkMode]);
 
   useEffect(() => {
     // Auto-scroll to bottom when new messages are added
@@ -23,182 +33,113 @@ export const ChatInterface: React.FC = () => {
   }, [messages]);
 
   const handlePromptKitInteraction = (type: string, data: unknown) => {
-    setInteractions((prev) => [...prev, { type, data }]);
+    setInteractions(prev => [...prev, { type, data }]);
   };
 
-  const totalEmotions = messages.reduce(
-    (acc, msg) => acc + msg.emotions.length,
-    0
-  );
-  const averageConfidence = Math.round(
-    messages.reduce(
-      (acc, msg) =>
-        acc +
-        msg.emotions.reduce((sum, emotion) => sum + emotion.confidence, 0),
-      0
-    ) / totalEmotions
-  );
+  const toggleTheme = () => {
+    setIsDarkMode(!isDarkMode);
+  };
+
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
-      <div className="container mx-auto px-4 py-8">
+    <div className="flex h-screen bg-gray-900 text-gray-100">
+      {/* Sidebar */}
+      <div className={`${sidebarOpen ? 'w-16' : 'w-16'} bg-gray-800 flex flex-col items-center py-4 space-y-6 transition-all duration-300`}>
+        <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
+          <div className="w-4 h-4 bg-white rounded-sm"></div>
+        </div>
+        
+        <nav className="flex flex-col space-y-4">
+          <button className="w-8 h-8 flex items-center justify-center rounded-lg bg-gray-700 hover:bg-gray-600 transition-colors">
+            <Copy size={16} />
+          </button>
+          <button className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-700 transition-colors">
+            <Menu size={16} />
+          </button>
+        </nav>
+        
+        <div className="flex-1"></div>
+        
+        <div className="flex flex-col space-y-4">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={toggleTheme}
+            className="w-8 h-8 p-0 hover:bg-gray-700"
+          >
+            {isDarkMode ? <Sun size={16} /> : <Moon size={16} />}
+          </Button>
+          
+          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+            <span className="text-xs font-semibold">U</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <div className="flex-1 flex flex-col">
         {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">
-            AI Emotion Chat Interface
-          </h1>
-          <p className="text-lg text-gray-600 dark:text-gray-400">
-            A Next.js application showcasing emotion analysis in conversations
-          </p>
+        <div className="h-14 border-b border-gray-700 flex items-center justify-between px-6">
+          <div className="flex items-center space-x-3">
+            <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
+              <div className="w-4 h-4 bg-white rounded-sm"></div>
+            </div>
+            <div>
+              <h1 className="font-semibold text-gray-100">React State Management Chat</h1>
+              <p className="text-xs text-gray-400">AI Assistant helping with coding questions</p>
+            </div>
+          </div>
+          
+          <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-4 text-xs text-gray-400">
+              <span>Frustration 75.00</span>
+              <span>Curiosity 65.00</span>
+              <span>Determination 58.00</span>
+            </div>
+          </div>
         </div>
 
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-          <Card>
-            <CardContent className="flex items-center p-4">
-              <MessageSquare className="w-8 h-8 text-blue-500 mr-3" />
-              <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">
-                  Messages
-                </p>
-                <p className="text-2xl font-bold text-gray-900 dark:text-white">
-                  {messages.length}
-                </p>
+        {/* Chat Area */}
+        <div className="flex-1 flex">
+          {/* Messages */}
+          <div className="flex-1 flex flex-col">
+            <ScrollArea className="flex-1" ref={scrollAreaRef}>
+              <div className="p-6 space-y-6">
+                {messages.map((message, index) => (
+                  <ChatMessage key={message.id} message={message} />
+                ))}
               </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardContent className="flex items-center p-4">
-              <Brain className="w-8 h-8 text-purple-500 mr-3" />
-              <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">
-                  Emotions
-                </p>
-                <p className="text-2xl font-bold text-gray-900 dark:text-white">
-                  {totalEmotions}
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardContent className="flex items-center p-4">
-              <Activity className="w-8 h-8 text-green-500 mr-3" />
-              <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">
-                  Avg Confidence
-                </p>
-                <p className="text-2xl font-bold text-gray-900 dark:text-white">
-                  {averageConfidence}%
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Chat Messages */}
-          <div className="lg:col-span-2">
-            <Card className="h-[600px] flex flex-col">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <MessageSquare className="w-5 h-5" />
-                  React State Management Conversation
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="flex-1 p-0">
-                <ScrollArea className="h-full" ref={scrollAreaRef}>
-                  <div className="px-4">
-                    {messages.map((message, index) => (
-                      <div key={message.id}>
-                        <ChatMessage message={message} />
-                        {index < messages.length - 1 && (
-                          <Separator className="my-2" />
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </ScrollArea>
-              </CardContent>
-            </Card>
+            </ScrollArea>
           </div>
 
-          {/* Sidebar */}
-          <div className="space-y-6">
-            {/* Prompt-Kit Integration */}
+          {/* Right Sidebar - Prompt Kit Demo */}
+          <div className="w-80 bg-gray-850 border-l border-gray-700 p-4">
             <PromptKitDemo onInteraction={handlePromptKitInteraction} />
-
+            
             {/* Recent Interactions */}
             {interactions.length > 0 && (
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-sm font-medium">
-                    Recent Interactions
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-2">
+              <div className="mt-6">
+                <h3 className="text-sm font-medium text-gray-300 mb-3">Recent Interactions</h3>
+                <div className="space-y-2">
                   {interactions.slice(-3).map((interaction, index) => (
-                    <div
-                      key={index}
-                      className="text-xs p-2 bg-gray-50 dark:bg-gray-800 rounded"
-                    >
-                      <div className="font-medium text-gray-900 dark:text-gray-100">
+                    <div key={index} className="text-xs p-2 bg-gray-800 rounded border border-gray-700">
+                      <div className="font-medium text-gray-100">
                         {interaction.type}
                       </div>
-                      <div className="text-gray-600 dark:text-gray-400">
+                      <div className="text-gray-400">
                         {/* Confidence: {interaction.data.data?.confidence}% */}
                       </div>
                     </div>
                   ))}
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             )}
-
-            {/* Technology Stack */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-sm font-medium">
-                  Tech Stack
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <div className="flex items-center justify-between text-sm">
-                  <span className="text-gray-600 dark:text-gray-400">
-                    Framework
-                  </span>
-                  <span className="font-medium">Next.js 14+</span>
-                </div>
-                <div className="flex items-center justify-between text-sm">
-                  <span className="text-gray-600 dark:text-gray-400">
-                    Language
-                  </span>
-                  <span className="font-medium">TypeScript</span>
-                </div>
-                <div className="flex items-center justify-between text-sm">
-                  <span className="text-gray-600 dark:text-gray-400">
-                    UI Library
-                  </span>
-                  <span className="font-medium">Shadcn/ui</span>
-                </div>
-                <div className="flex items-center justify-between text-sm">
-                  <span className="text-gray-600 dark:text-gray-400">
-                    Styling
-                  </span>
-                  <span className="font-medium">Tailwind CSS</span>
-                </div>
-                <div className="flex items-center justify-between text-sm">
-                  <span className="text-gray-600 dark:text-gray-400">
-                    Special
-                  </span>
-                  <span className="font-medium">Prompt-kit</span>
-                </div>
-              </CardContent>
-            </Card>
           </div>
         </div>
       </div>
     </div>
   );
 };
-
