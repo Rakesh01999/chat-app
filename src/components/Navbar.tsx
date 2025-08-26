@@ -24,6 +24,7 @@ import {
   Sun,
   MessageSquare
 } from 'lucide-react';
+import { ModeToggle } from './ModeToggle';
 
 interface NavbarProps {
   onToggleSidebar: () => void;
@@ -88,7 +89,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           {/* Theme toggle */}
-          {onToggleTheme && (
+          {/* {onToggleTheme && (
             <Button
               variant="ghost"
               size="sm"
@@ -98,7 +99,9 @@ export const Navbar: React.FC<NavbarProps> = ({
               {isDarkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
               <span className="sr-only">Toggle theme</span>
             </Button>
-          )}
+          )} */}
+
+        <ModeToggle />
 
           {/* Notifications */}
           <Button
@@ -155,3 +158,4 @@ export const Navbar: React.FC<NavbarProps> = ({
     </header>
   );
 };
+

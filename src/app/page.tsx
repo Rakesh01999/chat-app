@@ -1,6 +1,11 @@
-import Image from "next/image";
+// app/page.tsx - Updated to use new layout
+import { AppLayout } from '@/components/AppLayout';
 import { ChatInterface } from '@/components/ChatInterface';
 
 export default function Home() {
-  return <ChatInterface />;
+  return (
+    <AppLayout>
+      <ChatInterface />
+    </AppLayout>
+  );
 }
