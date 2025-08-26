@@ -74,7 +74,10 @@ export const ChatInterface: React.FC = () => {
           ))}
         </div>
         {/* Chat Input */}
-        <div className="p-4 md:p-6 border-t border-gray-200 dark:border-gray-700 mb-10">
+        {/* <div className="p-4 md:p-6 border-t border-gray-200 dark:border-gray-700 mb-10">
+          <PromptInputWithActions />
+        </div> */}
+        <div className="border-t border-gray-200 dark:border-gray-700 mb-10">
           <PromptInputWithActions />
         </div>
       </div>
