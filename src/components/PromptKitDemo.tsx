@@ -1,4 +1,3 @@
-// components/PromptKitDemo.tsx
 'use client';
 
 import React, { useState } from 'react';
