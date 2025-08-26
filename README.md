@@ -1,6 +1,9 @@
 
 # Chat-App - Frontend Developer Assessment (Next.js)
 
+## Live Link:
+[chat-assistant-app](https://chat-assistant-app.netlify.app/)
+
 ## Table of Contents
 - [Project Overview](#project-overview)
 - [Demo](#demo)
