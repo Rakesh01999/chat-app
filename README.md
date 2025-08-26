@@ -97,7 +97,7 @@ chat-app/
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/<your-username>/chat-app.git
+https://github.com/Rakesh01999/chat-app.git
 cd chat-app
 ````
 
@@ -175,7 +175,7 @@ npm run build
 **Rakesh Biswas**
 
 * GitHub: [https://github.com/rakesh-biswas](https://github.com/Rakesh01999)
-* Portfolio: [https://rakesh-biswas-portfolio.netlify.app/](https://rakesh-biswas-portfolio-nextjs.vercel.app/)
+* Portfolio: [https://rakesh-biswas-portfolio-nextjs.vercel.app/](https://rakesh-biswas-portfolio-nextjs.vercel.app/)
 
 
 ---
@@ -183,7 +183,6 @@ npm run build
 ## License
 
 This project is for **assessment purposes only**.
-
 ```
 
 
