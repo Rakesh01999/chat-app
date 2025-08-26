@@ -126,7 +126,7 @@ const SidebarContent: React.FC<{ isOpen: boolean; onToggle?: () => void }> = ({
             <div className="w-6 h-6 bg-blue-500 rounded-md flex items-center justify-center">
               <MessageSquare className="w-3 h-3 text-white" />
             </div>
-            <span className="font-semibold text-sm">AI Assistant</span>
+            <span className="font-semibold text-sm">Chat Assistant</span>
           </div>
         )}
         {onToggle && (

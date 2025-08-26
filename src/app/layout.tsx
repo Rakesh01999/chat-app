@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AI Emotion Chat Interface",
+  title: "Chat Assistant",
   description:
     "A Next.js application showcasing emotion analysis in conversations",
 };

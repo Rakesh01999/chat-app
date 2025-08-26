@@ -55,7 +55,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
           <div className="hidden sm:block">
             <h1 className="text-lg font-semibold text-white">
-              AI Chat Interface
+              Chat Assistant
             </h1>
             <p className="text-xs text-gray-200 dark:text-gray-400">
               Emotion Analysis Demo
