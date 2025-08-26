@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import {
   MessageSquare,
   Brain,
@@ -21,6 +21,7 @@ import {
   Search,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -296,6 +297,9 @@ export const MobileSidebar: React.FC<{
         side="left"
         className="p-0 w-80 bg-gray-900 border-gray-700"
       >
+        <VisuallyHidden>
+          <SheetTitle>Sidebar</SheetTitle>
+        </VisuallyHidden>
         <SidebarContent isOpen={true} />
       </SheetContent>
     </Sheet>
