@@ -1,10 +1,9 @@
-// components/Navbar.tsx
-'use client';
+"use client";
 
-import React from 'react';
+import React from "react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { 
+import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
@@ -13,18 +12,16 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
-import { 
-  Menu, 
-  Search, 
-  Bell, 
-  Settings, 
-  User, 
+import {
+  Menu,
+  Search,
+  Bell,
+  Settings,
+  User,
   LogOut,
-  Moon,
-  Sun,
-  MessageSquare
-} from 'lucide-react';
-import { ModeToggle } from './ModeToggle';
+  MessageSquare,
+} from "lucide-react";
+import { ModeToggle } from "./ModeToggle";
 
 interface NavbarProps {
   onToggleSidebar: () => void;
@@ -32,10 +29,10 @@ interface NavbarProps {
   onToggleTheme?: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ 
-  onToggleSidebar, 
-  isDarkMode = true, 
-  onToggleTheme 
+export const Navbar: React.FC<NavbarProps> = ({
+  onToggleSidebar,
+  isDarkMode = true,
+  onToggleTheme,
 }) => {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-gray-700 bg-gray-900/95 backdrop-blur supports-[backdrop-filter]:bg-gray-900/60">
@@ -57,8 +54,12 @@ export const Navbar: React.FC<NavbarProps> = ({
             <MessageSquare className="w-4 h-4 text-white" />
           </div>
           <div className="hidden sm:block">
-            <h1 className="text-lg font-semibold text-white">AI Chat Interface</h1>
-            <p className="text-xs text-gray-400">Emotion Analysis Demo</p>
+            <h1 className="text-lg font-semibold text-white">
+              AI Chat Interface
+            </h1>
+            <p className="text-xs text-gray-200 dark:text-gray-400">
+              Emotion Analysis Demo
+            </p>
           </div>
         </div>
 
@@ -80,28 +81,16 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="flex items-center space-x-3">
           {/* Status badges - Hidden on small screens */}
           <div className="hidden lg:flex items-center space-x-2">
-            <Badge variant="outline" className="text-xs border-green-600 text-green-400">
+            <Badge
+              variant="outline"
+              className="text-xs border-green-600 text-green-400"
+            >
               Online
-            </Badge>
-            <Badge variant="outline" className="text-xs border-blue-600 text-blue-400">
-              6 Messages
             </Badge>
           </div>
 
           {/* Theme toggle */}
-          {/* {onToggleTheme && (
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={onToggleTheme}
-              className="h-8 w-8 p-0 text-gray-300 hover:bg-gray-800 hover:text-white"
-            >
-              {isDarkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-              <span className="sr-only">Toggle theme</span>
-            </Button>
-          )} */}
-
-        <ModeToggle />
+          <ModeToggle />
 
           {/* Notifications */}
           <Button
@@ -128,7 +117,11 @@ export const Navbar: React.FC<NavbarProps> = ({
                 </Avatar>
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56 bg-gray-800 border-gray-700 text-gray-100" align="end" forceMount>
+            <DropdownMenuContent
+              className="w-56 bg-gray-800 border-gray-700 text-gray-100"
+              align="end"
+              forceMount
+            >
               <DropdownMenuLabel className="font-normal">
                 <div className="flex flex-col space-y-1">
                   <p className="text-sm font-medium leading-none">John Doe</p>
@@ -158,4 +151,3 @@ export const Navbar: React.FC<NavbarProps> = ({
     </header>
   );
 };
-

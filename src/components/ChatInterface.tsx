@@ -5,6 +5,7 @@ import { ChatMessage } from "./ChatMessage";
 import { PromptKitDemo } from "./PromptKitDemo";
 import { messages } from "@/data/messages";
 import { PanelRight, X } from "lucide-react";
+import { PromptInputWithActions } from "./prompt-kit/PromptInputWithActions";
 
 export const ChatInterface: React.FC = () => {
   const [interactions, setInteractions] = useState<
@@ -54,7 +55,7 @@ export const ChatInterface: React.FC = () => {
           {/* Toggle Sidebar Button (mobile only) */}
           <button
             onClick={() => setIsSidebarOpen(true)}
-            className="md:hidden ml-2 p-2 rounded-lg border bg-gray-100 dark:bg-gray-800"
+            className="lg:hidden ml-2 p-2 rounded-lg border bg-gray-100 dark:bg-gray-800"
           >
             <PanelRight className="w-5 h-5" />
           </button>
@@ -72,22 +73,27 @@ export const ChatInterface: React.FC = () => {
             <ChatMessage key={message.id} message={message} />
           ))}
         </div>
+        {/* Chat Input */}
+        <div className="p-4 md:p-6 border-t border-gray-200 dark:border-gray-700 mb-10">
+          <PromptInputWithActions />
+        </div>
       </div>
 
       {/* Right Sidebar */}
       <div
         className={`
-          fixed md:static top-0 right-0 h-full w-80 
-          overflow-y-auto border-l
-          bg-gray-50 border-gray-200
-          dark:bg-gray-900 dark:border-gray-700
-          transform transition-transform duration-300 z-20
-          ${isSidebarOpen ? "translate-x-0" : "translate-x-full"}
-          md:translate-x-0
-        `}
+    fixed lg:static top-0 right-0 h-full
+    w-[85%] max-w-sm lg:w-80
+    overflow-y-auto border-l
+    bg-gray-50 border-gray-200
+    dark:bg-gray-900 dark:border-gray-700
+    transform transition-transform duration-300 z-20
+    ${isSidebarOpen ? "translate-x-0" : "translate-x-full"}
+    lg:translate-x-0
+  `}
       >
-        {/* Close button (mobile only) */}
-        <div className="sticky top-0 bg-gray-50 dark:bg-gray-900 p-3 border-b border-gray-200 dark:border-gray-700 md:hidden flex justify-end">
+        {/* Close button (mobile + tablet) */}
+        <div className="sticky top-0 bg-gray-50 dark:bg-gray-900 p-3 border-b border-gray-200 dark:border-gray-700 flex justify-end lg:hidden">
           <button
             onClick={() => setIsSidebarOpen(false)}
             className="p-2 rounded-lg border bg-gray-100 dark:bg-gray-800"
@@ -96,7 +102,7 @@ export const ChatInterface: React.FC = () => {
           </button>
         </div>
 
-        <div className="p-6">
+        <div className="p-4 sm:p-6">
           <PromptKitDemo onInteraction={handlePromptKitInteraction} />
 
           {/* Recent Interactions */}
@@ -110,8 +116,8 @@ export const ChatInterface: React.FC = () => {
                   <div
                     key={index}
                     className="text-xs p-3 rounded-lg border 
-                               bg-gray-100 border-gray-200 text-gray-800
-                               dark:bg-gray-800 dark:border-gray-700 dark:text-gray-100"
+                         bg-gray-100 border-gray-200 text-gray-800
+                         dark:bg-gray-800 dark:border-gray-700 dark:text-gray-100"
                   >
                     <div className="font-medium mb-1">{interaction.type}</div>
                   </div>
@@ -121,6 +127,14 @@ export const ChatInterface: React.FC = () => {
           )}
         </div>
       </div>
+
+      {/* Sidebar Toggle Button */}
+      <button
+        onClick={() => setIsSidebarOpen(true)}
+        className="absolute top-4 right-4 p-2 rounded-lg border bg-gray-100 dark:bg-gray-800 lg:hidden z-30"
+      >
+        <PanelRight className="w-5 h-5" />
+      </button>
     </div>
   );
 };
