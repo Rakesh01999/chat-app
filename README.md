@@ -34,6 +34,9 @@ The purpose of this project is to showcase:
 
 [chat-assistant-app](https://chat-assistant-app.netlify.app/)
 
+
+
+
 ---
 
 ## Features
