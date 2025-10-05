@@ -55,7 +55,7 @@ The purpose of this project is to showcase:
 | Framework | [Next.js (latest)](https://nextjs.org/) |
 | UI Library | [Shadcn/ui](https://ui.shadcn.com/) |
 | Styling | [TailwindCSS](https://tailwindcss.com/) |
-| Language | TypeScript |
+| Language | [TypeScript](https://www.typescriptlang.org/) |
 | Special Library | [Prompt-kit](https://www.prompt-kit.com/) |
 
 ---
