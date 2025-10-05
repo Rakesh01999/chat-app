@@ -183,6 +183,5 @@ npm run build
 ## License
 
 This project is for **assessment purposes only**.
-```
 
 
